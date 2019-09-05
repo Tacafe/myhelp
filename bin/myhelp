@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+puts "Hello main"
+#
+# add lib folder
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+puts $:
+require 'parser_arg'
+
+module MyHelp
+  class << self
+    def get_helpfile
+      puts "hello get_helpfile"
+    end
+
+    def choose
+      puts "hello choose"
+    end
+
+    def main 
+      self.get_helpfile
+      self.choose
+    end
+  end
+
+end
+
+MyHelp.main()
+
+ParserArg.Hello()
+
+
+

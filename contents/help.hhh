@@ -1,0 +1,13 @@
+1. myhelpの参照
+myhelpコマンドにキーワードとオプションを渡す
+
+$ myhelp [keyword [option]
+
+keyword: contentsフォルダ配下に保存されたヘルプコンテンツファイル名（.hhhより手前のstem部分）に含まれるkeyword
+option: 出力方法など選べます（「2. 出力オプション」参照）
+
+例: myhelp chomd 
+chmod.hhhファイルが登録ずみであれば、ファイルの中身が出力されます。
+
+
+
