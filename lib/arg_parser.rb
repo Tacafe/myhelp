@@ -1,7 +1,7 @@
-module ParserArg
+module ArgParser
   class << self
     def Hello
-      puts "hello ParserArg"
+      puts "hello ArgParser"
     end
   end
 end
