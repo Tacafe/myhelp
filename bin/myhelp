@@ -4,8 +4,8 @@ puts "Hello main"
 #
 # add lib folder
 $:.unshift(File.dirname(__FILE__) + '/../lib')
-puts $:
-require 'parser_arg'
+require 'arg_parser'
+require 'file_loader'
 
 module MyHelp
   class << self
@@ -13,21 +13,13 @@ module MyHelp
       puts "hello get_helpfile"
     end
 
-    def choose
-      puts "hello choose"
-    end
-
     def main 
-      self.get_helpfile
-      self.choose
+      ArgParser.parse()
+      puts "test"
+      p FileLoader.pick("h", false)
     end
   end
 
 end
 
 MyHelp.main()
-
-ParserArg.Hello()
-
-
-
