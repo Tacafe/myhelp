@@ -4,7 +4,7 @@ puts "Hello main"
 #
 # add lib folder
 $:.unshift(File.dirname(__FILE__) + '/../lib')
-require 'arg_parser'
+require 'input_parameter'
 require 'file_loader'
 
 module MyHelp
@@ -14,9 +14,15 @@ module MyHelp
     end
 
     def main 
-      ArgParser.parse()
-      puts "test"
-      p FileLoader.pick("h", false)
+      puts "start"
+      ip = InputParameter.new
+      p ip.command
+      p ip.option
+      p ip.target
+      p ip.grep
+      p ip.prev_filename
+      p ip.new_filename
+      p ip.is_valid
     end
   end
 
