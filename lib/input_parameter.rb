@@ -51,11 +51,14 @@ class InputParameter
     elsif words.length == 1 && options.length > 1
       
 
-    elsif words.length == 2 && options.length > 1
-      @is_valid = true
-      @command = :show
-      @target = words[0]
-      @option = options[0]
+    elsif words.length == 2 && options.length = 1
+      if options[0] = :rn
+        @is_valid = true
+        @command = :rename
+        @option = options[0]
+        @prev_filename = words[0]
+        @new_filename = words[1]
+      end
 
     end
   end
