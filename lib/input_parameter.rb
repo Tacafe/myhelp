@@ -3,7 +3,7 @@ require 'arg_parser'
 class InputParameter
   include ArgParser
 
-  @@symbolic_options = %s[a, c, e, f, g, h, rn, rm]
+  @@symbolic_options = %i[a, c, e, f, g, h, rn, rm]
 
   attr_accessor  :command
   attr_accessor  :option
@@ -11,6 +11,8 @@ class InputParameter
   attr_accessor  :grep
   attr_accessor  :prev_filename
   attr_accessor  :new_filename
+  attr_accessor  :is_grep
+  attr_accessor  :is_choose
   attr_accessor  :is_valid
 
   def initialize()
@@ -29,6 +31,10 @@ class InputParameter
   end
 
   def evaluate words, options
+    @option = options
+    @is_grep = options.any? {|o| [:g, :s].include?(o) }
+    @is_choose = options.any? {|o| [:c, :f].include?(o) }
+
     if words.length == 0
       # help option include
       if options.include?(:h)
@@ -42,20 +48,26 @@ class InputParameter
       @target = words[0]
 
     # valid exept :rn option
-    elsif words.length == 1 && options.length == 1 && %s(a c e h rm).include?(options[0])
+    elsif words.length == 1 && options.length == 1 && [:a, :c, :e, :h, :rm].include?(options[0])
       @is_valid = true
       @command = :show
       @target = words[0]
-      @option = options[0]
 
-    elsif words.length == 1 && options.length > 1
+    elsif @is_choose && @is_grep
+      if words.length == 1
+        @is_valid = true
+        @command = :show
+        @target = words[0]
+      elsif words.length == 2
+        @is_valid = true
+        @command = :show
+        @target = words[0]
       
 
-    elsif words.length == 2 && options.length = 1
+    elsif words.length == 2 && options.length == 1
       if options[0] = :rn
         @is_valid = true
         @command = :rename
-        @option = options[0]
         @prev_filename = words[0]
         @new_filename = words[1]
       end
