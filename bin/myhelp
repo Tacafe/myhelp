@@ -1,31 +1,61 @@
 #!/usr/bin/env ruby
 
-puts "Hello main"
+# keyword (ヘルプファイル名orその一部) options
+#   -a [keyword] add 指定のヘルプファイルを新規作成
+#   -c [keyword] choose ヘルプファイル内のサブコンテンツを対話的に選択できる
+#   -e [keyword] edit 指定したヘルプファイルを編集する
+#                指定したヘルプファイルが存在しない場合は新規作成
+#   -f [optional keyword] find ヘルプファイルを絞り込む
+#   -g --grep [keyword] ヘルプファイル内のコンテンツを検索して表示できる
+#   -rn [keyword] [keyword] rename
+#   -rm [keyword] remove
 #
-# add lib folder
+# sub_commands
+#   list: output myhelp registerd contents
+#   show: show help file
+#   edit = call vim editor
+#   rename = mv file to new filename
+#   remove = rm file
+#   help = output help file of myhelp
+
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'input_parameter'
 require 'file_loader'
 
-module MyHelp
+class MyHelpCli
   class << self
-    def get_helpfile
-      puts "hello get_helpfile"
-    end
-
-    def main 
-      puts "start"
-      ip = InputParameter.new
-      p ip.command
-      p ip.option
-      p ip.target
-      p ip.grep
-      p ip.prev_filename
-      p ip.new_filename
-      p ip.is_valid
+    def usage
+      puts ""
     end
   end
 
+  def initialize(argv)
+    input_parameter = InputParameter.parse(argv)
+    @sub_command = input_parameter.sub_commnad
+  end
+
+  def show_help
+
+  end
+
+  def edit
+  end
+
+  def rename
+  end
+
+  def remove
+  end
+
+  def execute
+
+    puts "execute"
+    ip = InputParameter.new
+    prop = ip.instance_variables
+    prop.each do |key|
+      puts "#{key}: #{ip.instance_variable_get(key)}"
+    end
+  end
 end
 
-MyHelp.main()
+MyHelp.new(ARGV).execute()
